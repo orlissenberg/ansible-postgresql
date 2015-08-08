@@ -43,7 +43,6 @@ postgresql_pg_hba_passwd_hosts: []
 postgresql_pg_hba_trust_hosts: []
 postgresql_pg_hba_custom: []
 
-
 # postgresql.conf
 
 #------------------------------------------------------------------------------
@@ -84,9 +83,7 @@ postgresql_pg_ctl_options: []
 postgresql_bonjour: off # advertise server via Bonjour
 postgresql_bonjour_name: '' # defaults to the computer name
 
-
 # - Security and Authentication -
-
 postgresql_authentication_timeout: 60s
 postgresql_ssl: off
 postgresql_ssl_ciphers:
@@ -115,13 +112,11 @@ postgresql_tcp_keepalives_idle: 0
 postgresql_tcp_keepalives_interval: 0
 postgresql_tcp_keepalives_count: 0
 
-
 #------------------------------------------------------------------------------
 # RESOURCE USAGE (except WAL)
 #------------------------------------------------------------------------------
 
 # - Memory -
-
 postgresql_shared_buffers:       128MB # min 128kB
 postgresql_huge_pages:           try   # on, off, or try
 postgresql_temp_buffers:         8MB   # min 800kB
@@ -136,55 +131,44 @@ postgresql_work_mem:             1MB   # min 64kB
 postgresql_maintenance_work_mem: 16MB  # min 1MB
 postgresql_autovacuum_work_mem:  -1    # min 1MB, or -1 to use maintenance_work_mem
 postgresql_max_stack_depth:      2MB   # min 100kB
-postgresql_dynamic_shared_memory_type: posix    # the default is the first option
-                                                # supported by the operating system:
-                                                #   posix
-                                                #   sysv
-                                                #   windows
-                                                #   mmap
-                                                # use none to disable dynamic shared memory
-
+# the default is the first option
+# supported by the operating system:
+#   posix
+#   sysv
+#   windows
+#   mmap
+# use none to disable dynamic shared memory
+postgresql_dynamic_shared_memory_type: posix
 
 # - Disk -
-
 # limits per-session temp file space in kB, or -1 for no limit
 postgresql_temp_file_limit: -1
 
-
 # - Kernel Resource Usage -
-
 postgresql_max_files_per_process: 1000  # min 25
 postgresql_shared_preload_libraries: []
 
-
 # - Cost-Based Vacuum Delay -
-
 postgresql_vacuum_cost_delay:      0       # 0-100 milliseconds
 postgresql_vacuum_cost_page_hit:   1       # 0-10000 credits
 postgresql_vacuum_cost_page_miss:  10      # 0-10000 credits
 postgresql_vacuum_cost_page_dirty: 20      # 0-10000 credits
 postgresql_vacuum_cost_limit:      200     # 1-10000 credits
 
-
 # - Background Writer -
-
 postgresql_bgwriter_delay:          200ms  # 10-10000ms between rounds
 postgresql_bgwriter_lru_maxpages:   100    # 0-1000 max buffers written/round
 postgresql_bgwriter_lru_multiplier: 2.0    # 0-10.0 multipler on buffers scanned/round
 
-
 # - Asynchronous Behavior -
-
 postgresql_effective_io_concurrency: 1     # 1-1000; 0 disables prefetching
 postgresql_max_worker_processes: 8
-
 
 #------------------------------------------------------------------------------
 # WRITE AHEAD LOG
 #------------------------------------------------------------------------------
 
 # - Settings -
-
 postgresql_wal_level: minimal  # minimal, archive, hot_standby, or logical
 postgresql_fsync: on  # turns forced synchronization on or off
 
@@ -212,17 +196,13 @@ postgresql_wal_writer_delay: 200ms  # 1-10000 milliseconds
 postgresql_commit_delay:     0      # range 0-100000, in microseconds
 postgresql_commit_siblings:  5      # range 1-1000
 
-
 # - Checkpoints -
-
 postgresql_checkpoint_segments:          3     # in logfile segments, min 1, 16MB each
 postgresql_checkpoint_timeout:           5min  # range 30s-1h
 postgresql_checkpoint_completion_target: 0.5   # checkpoint target duration, 0.0 - 1.0
 postgresql_checkpoint_warning:           30s   # 0 disables
 
-
 # - Archiving -
-
 # allows archiving to be done
 postgresql_archive_mode: off
 
@@ -235,13 +215,11 @@ postgresql_archive_command: ''
 # force a logfile segment switch after this
 postgresql_archive_timeout: 0
 
-
 #------------------------------------------------------------------------------
 # REPLICATION
 #------------------------------------------------------------------------------
 
 # - Sending Server(s) -
-
 # Set these on the master and on any standby that will send replication data.
 
 # max number of walsender processes
@@ -251,9 +229,7 @@ postgresql_wal_keep_segments:  0    # in logfile segments, 16MB each; 0 disables
 postgresql_wal_sender_timeout: 60s  # in milliseconds; 0 disables
 postgresql_max_replication_slots: 0 # max number of replication slots
 
-
 # - Master Server -
-
 # These settings are ignored on a standby server.
 
 # Standby servers that provide sync rep.
@@ -263,29 +239,30 @@ postgresql_synchronous_standby_names: [] # '*' means 'all'
 # number of xacts by which cleanup is delayed
 postgresql_vacuum_defer_cleanup_age: 0
 
-
 # - Standby Servers -
-
 # "on" allows queries during recovery
 postgresql_hot_standby: off
+
 # max delay before canceling queries when reading WAL from archive
 postgresql_max_standby_archive_delay: 30s # -1 allows indefinite delay
+
 # max delay before canceling queries when reading streaming WAL;
 postgresql_max_standby_streaming_delay: 30s # -1 allows indefinite delay
+
 # send replies at least this often
 postgresql_wal_receiver_status_interval: 10s # 0 disables
+
 # send info from standby to prevent query conflicts
 postgresql_hot_standby_feedback: off
+
 #time that receiver waits for communication from master in milliseconds
 postgresql_wal_receiver_timeout: 60s
-
 
 #------------------------------------------------------------------------------
 # QUERY TUNING
 #------------------------------------------------------------------------------
 
 # - Planner Method Configuration -
-
 postgresql_enable_bitmapscan:         on
 postgresql_enable_hashagg:            on
 postgresql_enable_hashjoin:           on
@@ -298,9 +275,7 @@ postgresql_enable_seqscan:            on
 postgresql_enable_sort:               on
 postgresql_enable_tidscan:            on
 
-
 # - Planner Cost Constants -
-
 postgresql_seq_page_cost:             1.0     # measured on an arbitrary scale
 postgresql_random_page_cost:          4.0     # same scale as above
 postgresql_cpu_tuple_cost:            0.01    # same scale as above
@@ -308,9 +283,7 @@ postgresql_cpu_index_tuple_cost:      0.005   # same scale as above
 postgresql_cpu_operator_cost:         0.0025  # same scale as above
 postgresql_effective_cache_size:      128MB
 
-
 # - Genetic Query Optimizer -
-
 postgresql_geqo:                      on
 postgresql_geqo_threshold:            12
 postgresql_geqo_effort:               5    # range 1-10
@@ -319,15 +292,12 @@ postgresql_geqo_generations:          0    # selects default based on effort
 postgresql_geqo_selection_bias:       2.0  # range 1.5-2.0
 postgresql_geqo_seed:                 0.0  # range 0.0-1.0
 
-
 # - Other Planner Options -
-
 postgresql_default_statistics_target: 100        # range 1-10000
 postgresql_constraint_exclusion:      partition  # on, off, or partition
 postgresql_cursor_tuple_fraction:     0.1        # range 0.0-1.0
 postgresql_from_collapse_limit:       8
 postgresql_join_collapse_limit:       8          # 1 disables collapsing of explicit
-
 
 #------------------------------------------------------------------------------
 # ERROR REPORTING AND LOGGING
@@ -344,28 +314,31 @@ postgresql_log_destination: stderr
 postgresql_logging_collector: off
 
 # These are only used if logging_collector is on:
-
 # Directory where log files are written, can be absolute or relative to PGDATA
 postgresql_log_directory: pg_log
+
 # Log file name pattern, can include strftime() escapes
 postgresql_log_filename: postgresql-%Y-%m-%d_%H%M%S.log
 postgresql_log_file_mode: '0600' # begin with 0 to use octal notation
+
 # If on, an existing log file with the same name as the new log file will be
 # truncated rather than appended to. But such truncation only occurs on
 # time-driven rotation, not on restarts or size-driven rotation. Default is
 # off, meaning append to existing files in all cases.
 postgresql_log_truncate_on_rotation: off
+
 # Automatic rotation of logfiles will happen after that time.
 postgresql_log_rotation_age: 1d
+
 # Automatic rotation of logfiles will happen after that much log output.
 postgresql_log_rotation_size: 10MB
 
 # These are relevant when logging to syslog:
 postgresql_syslog_facility: LOCAL0
 postgresql_syslog_ident: postgres
+
 # This is only relevant when logging to eventlog (win32):
 postgresql_event_source: PostgreSQL
-
 
 # - When to Log -
 
@@ -415,9 +388,7 @@ postgresql_log_min_error_statement: error
 # statements running at least this number of milliseconds
 postgresql_log_min_duration_statement: -1
 
-
 # - What to Log -
-
 postgresql_debug_print_parse:     off
 postgresql_debug_print_rewritten: off
 postgresql_debug_print_plan:      off
@@ -457,7 +428,6 @@ postgresql_log_statement:  none  # none, ddl, mod, all
 postgresql_log_temp_files: -1
 postgresql_log_timezone:   UTC
 
-
 #------------------------------------------------------------------------------
 # RUNTIME STATISTICS
 #------------------------------------------------------------------------------
@@ -472,7 +442,6 @@ postgresql_track_activity_query_size: 1024
 postgresql_update_process_title:      on
 postgresql_stats_temp_directory:      pg_stat_tmp
 
-
 # - Statistics Monitoring -
 
 postgresql_log_parser_stats:    off
@@ -480,37 +449,46 @@ postgresql_log_planner_stats:   off
 postgresql_log_executor_stats:  off
 postgresql_log_statement_stats: off
 
-
 #------------------------------------------------------------------------------
 # AUTOVACUUM PARAMETERS
 #------------------------------------------------------------------------------
 
 # Enable autovacuum subprocess? 'on' requires track_counts to also be on.
 postgresql_autovacuum: on
+
 # -1 disables, 0 logs all actions and their durations, > 0 logs only
 # actions running at least this number of milliseconds.
 postgresql_log_autovacuum_min_duration: -1
+
 # max number of autovacuum subprocesses
 postgresql_autovacuum_max_workers: 3
+
 # time between autovacuum runs
 postgresql_autovacuum_naptime: 1min
+
 # min number of row updates before vacuum
 postgresql_autovacuum_vacuum_threshold: 50
+
 # min number of row updates before analyze
 postgresql_autovacuum_analyze_threshold: 50
+
 # fraction of table size before vacuum
 postgresql_autovacuum_vacuum_scale_factor: 0.2
+
 # fraction of table size before analyze
 postgresql_autovacuum_analyze_scale_factor: 0.1
+
 # maximum XID age before forced vacuum
 postgresql_autovacuum_freeze_max_age: 200000000
+
 # maximum Multixact age before forced vacuum
 postgresql_autovacuum_multixact_freeze_max_age: 400000000
+
 # default vacuum cost delay for autovacuum, in milliseconds
 postgresql_autovacuum_vacuum_cost_delay: 20ms
+
 # default vacuum cost limit for autovacuum,
 postgresql_autovacuum_vacuum_cost_limit: -1
-
 
 #------------------------------------------------------------------------------
 # CLIENT CONNECTION DEFAULTS
@@ -540,7 +518,6 @@ postgresql_vacuum_multixact_freeze_table_age: 150000000
 postgresql_bytea_output: hex  # hex, escape
 postgresql_xmlbinary:    base64
 postgresql_xmloption:    content
-
 
 # - Locale and Formatting -
 
@@ -577,7 +554,6 @@ postgresql_dynamic_library_path: '$libdir'
 postgresql_local_preload_libraries: []
 postgresql_session_preload_libraries: []
 
-
 #------------------------------------------------------------------------------
 # LOCK MANAGEMENT
 #------------------------------------------------------------------------------
@@ -589,7 +565,6 @@ postgresql_max_locks_per_transaction: 64         # min 10
 # max_locks_per_transaction * (max_connections + max_prepared_transactions)
 # lock table slots.
 postgresql_max_pred_locks_per_transaction: 64    # min 10
-
 
 #------------------------------------------------------------------------------
 # VERSION/PLATFORM COMPATIBILITY
@@ -607,11 +582,8 @@ postgresql_sql_inheritance:             on
 postgresql_standard_conforming_strings: on
 postgresql_synchronize_seqscans:        on
 
-
 # - Other Platforms and Clients -
-
 postgresql_transform_null_equals:       off
-
 
 #------------------------------------------------------------------------------
 # ERROR HANDLING
@@ -619,24 +591,24 @@ postgresql_transform_null_equals:       off
 
 # Terminate session on any error?
 postgresql_exit_on_error: off
+
 # Reinitialize after backend crash?
 postgresql_restart_after_crash: on
-
 
 #------------------------------------------------------------------------------
 # PGTUNE
 #------------------------------------------------------------------------------
 # Should we run pgtune and accept the changes it proposes?
 postgresql_pgtune: no
+
 # Total system memory in bytes, will attempt to detect if set to "no"
 postgresql_pgtune_memory: no
+
 # Database type, valid options are DW, OLTP, Web, Mixed, Desktop
 postgresql_pgtune_type: Mixed
+
 # Maximum number of expected connections, if "no", default based on db type
 postgresql_pgtune_connections: no
-
-
-
 
 postgresql_env:
   LC_ALL: "{{ postgresql_locale }}"
