@@ -6,6 +6,9 @@ postgresql_encoding: 'UTF-8'
 postgresql_locale: 'en_US.UTF-8'
 
 postgresql_admin_user: "postgres"
+
+# Trust Authentication
+# http://www.postgresql.org/docs/9.3/static/auth-methods.html
 postgresql_default_auth_method: "trust"
 
 # The user/group that will run postgresql process or service
@@ -16,6 +19,7 @@ postgresql_cluster_name: "main"
 postgresql_cluster_reset: false
 
 postgresql_database_owner: "{{ postgresql_admin_user }}"
+
 # Extensions
 postgresql_ext_install_contrib: no
 postgresql_ext_install_dev_headers: no
@@ -33,11 +37,32 @@ postgresql_users: []
 postgresql_user_privileges: []
 
 # pg_hba.conf
+# postgresql_default_auth_method = trust
 postgresql_pg_hba_default:
-  - { type: local, database: all, user: '{{ postgresql_admin_user }}', address: '', method: '{{ postgresql_default_auth_method }}', comment: '' }
-  - { type: local, database: all, user: all, address: '',             method: '{{ postgresql_default_auth_method }}', comment: '"local" is for Unix domain socket connections only' }
-  - { type: host,  database: all, user: all, address: '127.0.0.1/32', method: '{{ postgresql_default_auth_method }}', comment: 'IPv4 local connections:' }
-  - { type: host,  database: all, user: all, address: '::1/128',      method: '{{ postgresql_default_auth_method }}', comment: 'IPv6 local connections:' }
+  - type: local
+    database: all
+    user: '{{ postgresql_admin_user }}'
+    address: ''
+    method: '{{ postgresql_default_auth_method }}'
+    comment: ''
+  - type: local
+    database: all
+    user: all
+    address: ''
+    method: '{{ postgresql_default_auth_method }}'
+    comment: '"local" is for Unix domain socket connections only'
+  - type: host
+    database: all
+    user: all
+    address: '127.0.0.1/32'
+    method: '{{ postgresql_default_auth_method }}'
+    comment: 'IPv4 local connections:'
+  - type: host
+    database: all
+    user: all
+    address: '::1/128'
+    method: '{{ postgresql_default_auth_method }}'
+    comment: 'IPv6 local connections:'
 
 postgresql_pg_hba_passwd_hosts: []
 postgresql_pg_hba_trust_hosts: []
@@ -50,13 +75,17 @@ postgresql_pg_hba_custom: []
 #------------------------------------------------------------------------------
 
 # Location of postgres configuration files here
-postgresql_conf_directory: "/etc/postgresql/{{postgresql_version}}/{{postgresql_cluster_name}}"
+postgresql_conf_directory: "/etc/postgresql/{{ postgresql_version }}/{{ postgresql_cluster_name }}"
+
 # HBA (Host Based Authentication) file
-postgresql_hba_file: "{{postgresql_conf_directory}}/pg_hba.conf"
+postgresql_hba_file: "{{ postgresql_conf_directory }}/pg_hba.conf"
+
 # Ident configuration file
-postgresql_ident_file: "{{postgresql_conf_directory}}/pg_ident.conf"
+postgresql_ident_file: "{{ postgresql_conf_directory }}/pg_ident.conf"
+
 # Use data in another directory
 postgresql_data_directory: "/var/lib/postgresql/{{postgresql_version}}/{{postgresql_cluster_name}}"
+
 # If external_pid_file is not explicitly set, on extra PID file is written
 postgresql_external_pid_file: "/var/run/postgresql/{{postgresql_version}}-{{postgresql_cluster_name}}.pid"
 

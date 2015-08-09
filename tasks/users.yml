@@ -5,14 +5,22 @@
     name: postgresql
     state: started
 
+# Uncomment for science.
+#- debug: msg="{{ item.name }} - md5{{ (item.pass + item.name) | md5 }}"
+#  with_items: postgresql_users
+#  when: postgresql_users|length > 0
+
+# http://docs.ansible.com/ansible/postgresql_user_module.html
+# 'str["md5"] + md5[ password + username ]'
 - name: PostgreSQL | Make sure the PostgreSQL users are present
   postgresql_user:
-    name: "{{item.name}}"
-    password: "{{item.pass | default('pass')}}"
-    port: "{{postgresql_port}}"
+    name: "{{ item.name }}"
+    encrypted: yes
+    password: "md5{{ (item.pass + item.name) | md5 }}"
+    port: "{{ postgresql_port }}"
     state: present
-    login_user: "{{postgresql_admin_user}}"
+    login_user: "{{ postgresql_admin_user }}"
   sudo: yes
-  sudo_user: "{{postgresql_admin_user}}"
+  sudo_user: "{{ postgresql_admin_user }}"
   with_items: postgresql_users
   when: postgresql_users|length > 0

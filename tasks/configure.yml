@@ -25,10 +25,11 @@
   sudo_user: "{{ postgresql_service_user }}"
   when: postgresql_cluster_reset and pgdata_dir_exist.changed
 
+# postgresql_conf_directory = /etc/postgresql/9.3/main
 - name: PostgreSQL | Update configuration - pt. 1 (pg_hba.conf)
   template:
     src: pg_hba.conf.j2
-    dest: "{{postgresql_conf_directory}}/pg_hba.conf"
+    dest: "{{ postgresql_conf_directory }}/pg_hba.conf"
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     mode: 0640
