@@ -2,6 +2,8 @@
 
 Ansible role which installs and configures PostgreSQL, extensions, databases and users.
 
+[pgAdmin](http://www.pgadmin.org/)
+
 #### Requirements & Dependencies
 - Tested on Ansible 1.8.4 or higher.
 

@@ -13,6 +13,7 @@ EOF
 # Create group_vars for the webservers
 mkdir -p $TMP_DIR/group_vars 2> /dev/null
 cat << EOF > $TMP_DIR/group_vars/webservers
+
 postgresql_default_auth_method: "md5"
 
 postgresql_pg_hba_default:
@@ -48,6 +49,7 @@ postgresql_users:
 postgresql_user_privileges:
   - name: testuser
     role_attr_flags: LOGIN
+
 EOF
 
 # Peer authentication:
