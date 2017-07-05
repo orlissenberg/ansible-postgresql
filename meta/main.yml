@@ -1,13 +1,13 @@
 # file: postgresql/meta/main.yml
 
 galaxy_info:
-  author: pjan vandaele
-  company: ANXS
+  author: Onno Lissenberg (original by pjan vandaele)
+  company: Onno Lissenberg (original by ANXS)
   description: "Install and configure PostgreSQL, dependencies, extensions, databases and users."
-  min_ansible_version: 1.6
+  min_ansible_version: 2.3.1.0
   license: MIT
   platforms:
-  - name: Ubuntu
+  - name: Debian
     versions:
     - all
   categories:
