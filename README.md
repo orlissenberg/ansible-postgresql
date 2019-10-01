@@ -52,6 +52,15 @@ To the contributors:
 - [Ralph von der Heyden](https://github.com/ralph)
 - ANXS
 
+#### Issues
+
+    postgresql-contrib-9.4 : Depends: postgresql-9.4 (= 9.4.13-0+deb8u1) but 9.4.12-1.pgdg80+1 is to be installed
+    > sudo apt-get -f install
+    > sudo apt list --installed | grep postgresql
+    > sudo apt-get upgrade
+    > sudo apt-get remove postgresql-contrib-9.4
+    and reinstall after ...
+
 #### Feedback, bug-reports, requests, ...
 
 Are welcome!
